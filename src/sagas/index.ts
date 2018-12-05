@@ -2,7 +2,7 @@ import { push } from 'connected-react-router'
 import { startSubmit, stopSubmit } from 'redux-form'
 import { all, fork, put, take } from 'redux-saga/effects'
 
-import { ActionKeys, setontactForm } from '../actions/contact'
+import { ActionKeys, setContactForm } from '../actions/contact'
 
 function* handleContactForm() {
   while (true) {
@@ -12,7 +12,7 @@ function* handleContactForm() {
     // Do something async processes
     yield put(stopSubmit('contact'))
 
-    yield put(setontactForm(action.payload))
+    yield put(setContactForm(action.payload))
 
     yield put(push('/preview'))
   }

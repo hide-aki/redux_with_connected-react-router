@@ -23,7 +23,7 @@ export type Action =
 | SetContactFormAction
 | SubmitContactFormAction
 
-export const setontactForm = (params: Contact): SetContactFormAction => ({
+export const setContactForm = (params: Contact): SetContactFormAction => ({
   type: ActionKeys.SET_CONTACT_FORM,
   payload: { ...params },
 })
