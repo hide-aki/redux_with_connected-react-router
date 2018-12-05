@@ -1,9 +1,9 @@
-import * as React from 'react'
+import * as React from "react";
 
 export interface PreviewProps {
-  firstName?: string
-  lastName?: string
-  email?: string
+  firstName?: string;
+  lastName?: string;
+  email?: string;
 }
 
 export const Preview = (props: PreviewProps) => (
@@ -12,4 +12,4 @@ export const Preview = (props: PreviewProps) => (
     <p>Last Name: {props.lastName}</p>
     <p>E-mail: {props.email}</p>
   </div>
-)
+);
