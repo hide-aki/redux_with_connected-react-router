@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --hot --mode development",
-    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ."
+    "fmt": "eslint --fix --ext .js,.jsx,.ts,.tsx ."
   },
   "keywords": [],
   "author": "dorayakikun <amakunai.dorayaki@gmaill.com> (https://medium.com/@dorayakikun)",
@@ -16,6 +16,7 @@
     "url": "https://github.com/dorayakikun/redux_with_connected-react-router.git"
   },
   "dependencies": {
+    "@material-ui/core": "^3.6.1",
     "@types/history": "^4.7.2",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
