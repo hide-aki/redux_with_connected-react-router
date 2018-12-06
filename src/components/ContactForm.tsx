@@ -2,14 +2,16 @@ import * as React from "react";
 import {
   Field,
   InjectedFormProps,
-  WrappedFieldInputProps,
   reduxForm
 } from "redux-form";
+import {PropInjector} from '@material-ui/core';
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import {WithStyles,StyledComponentProps} from '@material-ui/core/styles';
+import withStyles, {WithStylesOptions} from '@material-ui/core/styles/withStyles';
 export interface ContactFormFields {
   firstName?: string;
   lastName?: string;
@@ -47,6 +49,8 @@ const styles = (theme: any) => ({
   }
 });
 
+type ClassKey = keyof typeof styles;
+
 const renderTextField = ({
   input,
   label,
@@ -59,13 +63,15 @@ const renderTextField = ({
   );
 };
 const PureContactForm: React.SFC<
-  InjectedFormProps<ContactFormFields>
-> = props => {
-  const { handleSubmit } = props;
+  InjectedFormProps<ContactFormFields> & any
+> = (props: InjectedFormProps<ContactFormFields> & any) => {// TODO 型付
+  const { classes, handleSubmit } = props;
   return (
     <React.Fragment>
+      <main className={classes.layout}>
+      <Paper className={classes.paper}>
+      <React.Fragment>
       <form onSubmit={handleSubmit}>
-        <Paper>
           <Typography variant="h6" gutterBottom>
             redux-form sample
           </Typography>
@@ -102,18 +108,21 @@ const PureContactForm: React.SFC<
             </Grid>
             <Grid item xs={12}>
               <div>
-                <Button color="primary" type="submit">
+                <Button className={classes.buttons} color="primary" type="submit">
                   Submit
                 </Button>
               </div>
             </Grid>
           </Grid>
-        </Paper>
+        
       </form>
+      </React.Fragment>
+      </Paper>
+      </main>
     </React.Fragment>
   );
 };
 
 export const ContactForm = reduxForm({
   form: "contact"
-})(PureContactForm);
+})(withStyles<ClassKey>(styles)(PureContactForm) as any);
