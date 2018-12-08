@@ -1,24 +1,27 @@
 import * as React from "react";
-import {
-  Field,
-  InjectedFormProps,
-  reduxForm
-} from "redux-form";
-import {PropInjector} from '@material-ui/core';
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { ConsistentWith, Theme } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import {WithStyles,StyledComponentProps} from '@material-ui/core/styles';
-import withStyles, {WithStylesOptions} from '@material-ui/core/styles/withStyles';
+import withStyles from "@material-ui/core/styles/withStyles";
 export interface ContactFormFields {
   firstName?: string;
   lastName?: string;
   email?: string;
 }
+interface ContactFormStyles {
+  classes: {
+    layout: any;
+    paper: any;
+    buttons: any;
+    button: any;
+  };
+}
 
-const styles = (theme: any) => ({
+const styles = (theme: Theme) => ({
   layout: {
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
@@ -49,8 +52,6 @@ const styles = (theme: any) => ({
   }
 });
 
-type ClassKey = keyof typeof styles;
-
 const renderTextField = ({
   input,
   label,
@@ -63,61 +64,64 @@ const renderTextField = ({
   );
 };
 const PureContactForm: React.SFC<
-  InjectedFormProps<ContactFormFields> & any
-> = (props: InjectedFormProps<ContactFormFields> & any) => {// TODO 型付
+  InjectedFormProps<ContactFormFields> & ContactFormStyles
+> = (props: InjectedFormProps<ContactFormFields> & ContactFormStyles) => {
   const { classes, handleSubmit } = props;
   return (
     <React.Fragment>
       <main className={classes.layout}>
-      <Paper className={classes.paper}>
-      <React.Fragment>
-      <form onSubmit={handleSubmit}>
-          <Typography variant="h6" gutterBottom>
-            redux-form sample
-          </Typography>
-          <Grid container spacing={24}>
-            <Grid item xs={12}>
-              <div>
-                <Field
-                  name="firstName"
-                  label="firstName"
-                  component={renderTextField}
-                  type="text"
-                />
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <div>
-                <Field
-                  name="lastName"
-                  label="lastName"
-                  component={renderTextField}
-                  type="text"
-                />
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <div>
-                <Field
-                  name="email"
-                  label="email"
-                  component={renderTextField}
-                  type="email"
-                />
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <div>
-                <Button className={classes.buttons} color="primary" type="submit">
-                  Submit
-                </Button>
-              </div>
-            </Grid>
-          </Grid>
-        
-      </form>
-      </React.Fragment>
-      </Paper>
+        <Paper className={classes.paper}>
+          <React.Fragment>
+            <form onSubmit={handleSubmit}>
+              <Typography variant="h6" gutterBottom>
+                redux-form sample
+              </Typography>
+              <Grid container spacing={24}>
+                <Grid item xs={12}>
+                  <div>
+                    <Field
+                      name="firstName"
+                      label="firstName"
+                      component={renderTextField}
+                      type="text"
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  <div>
+                    <Field
+                      name="lastName"
+                      label="lastName"
+                      component={renderTextField}
+                      type="text"
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  <div>
+                    <Field
+                      name="email"
+                      label="email"
+                      component={renderTextField}
+                      type="email"
+                    />
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  <div>
+                    <Button
+                      className={classes.buttons}
+                      color="primary"
+                      type="submit"
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </Grid>
+              </Grid>
+            </form>
+          </React.Fragment>
+        </Paper>
       </main>
     </React.Fragment>
   );
@@ -125,4 +129,4 @@ const PureContactForm: React.SFC<
 
 export const ContactForm = reduxForm({
   form: "contact"
-})(withStyles<ClassKey>(styles)(PureContactForm) as any);
+})(withStyles(styles)(PureContactForm) as any);
